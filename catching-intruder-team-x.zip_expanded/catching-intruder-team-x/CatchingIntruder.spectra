@@ -1,0 +1,118 @@
+import "./imports/DwyerPatterns.spectra"
+
+spec CatchingIntruder
+define D := 7;
+type Dim = Int(0..D);
+type Dimt= Int(0..4); 
+sys Dim robotX0;
+sys Dim robotY0;
+sys Dim robotX1;
+sys Dim robotY1;
+env Dim intruderX;
+env Dim intruderY;
+sys Dimt turns;
+// req 1
+gar ini robotX0 = 0;
+gar ini robotY0 = 0;
+gar ini robotX1 = D;
+gar ini robotY1 = 0;
+
+//req5
+gar ini turns = 0;
+
+
+predicate atObstacle(Dim x, Dim y):
+	(x >= 2 & x <= 5 ) & y = 1;
+
+// req 2
+predicate MoveAdjacent(Dim x, Dim y):
+	((next(x) = x + 1 | next(x) = x-1) & y = next(y))
+	|
+	((next(y) = y + 1 | next(y) = y - 1) & x = next(x))
+	|
+	(x = next(x) & y = next(y)); 
+
+gar always MoveAdjacent(robotX0, robotY0);
+gar always MoveAdjacent(robotX1, robotY1);
+
+//req3
+asm ini intruderY = 7;
+asm alw turns < 4 implies MoveAdjacent(intruderX, intruderY);
+
+//req4
+gar alw !atSamePos(robotX0, robotY0, robotX1, robotY1);
+gar alw !atSamePos(intruderX, intruderY, robotX0, robotY0);
+gar alw !atSamePos(intruderX, intruderY, robotX1, robotY1);
+
+predicate atSamePos(Dim x1, Dim y1, Dim x2, Dim y2):
+	(x1 = x2) & (y1 = y2);
+
+//req5
+predicate intudersameplaceasrobots(Dim x, Dim y):
+		((x != robotX0) | (y != robotY0)) &
+		((x != robotX1) | (y != robotY1)) ;
+
+
+predicate intruderCanMove():
+//	can move down
+	((intruderY < 7) & (intudersameplaceasrobots(intruderX, intruderY + 1)) & (!atObstacle(intruderX, intruderY + 1))) |
+//	can move up
+	(intruderY > 0  & (intudersameplaceasrobots(intruderX, intruderY - 1)) & (!atObstacle(intruderX, intruderY - 1))) |
+//	can move right
+	(intruderX < 7 &(intudersameplaceasrobots(intruderX + 1, intruderY)) & (!atObstacle(intruderX + 1, intruderY))) |
+//	can move left
+	(intruderX > 0 & (intudersameplaceasrobots(intruderX - 1, intruderY)) & (!atObstacle(intruderX - 1, intruderY)));
+
+predicate onRobot(Dim x, Dim y):
+   (x=robotX0 & y=robotY0) | (x=robotX1 & y=robotY1);
+
+define intruderStuck:=
+   ((intruderX-1) < 0 | atObstacle(intruderX-1, intruderY) | onRobot(intruderX-1, intruderY))
+   &
+   ((intruderX+1) > D | atObstacle(intruderX+1, intruderY) | onRobot(intruderX+1, intruderY))
+   &
+   ((intruderY-1) < 0 | atObstacle(intruderX, intruderY-1) | onRobot(intruderX, intruderY-1))
+   &
+   ((intruderY+1) > D | atObstacle(intruderX, intruderY+1) | onRobot(intruderX, intruderY+1));
+
+predicate adjecentToIntruder(Dim x, Dim y):
+	((x + 1) = intruderX & (intruderY = y)) | ((x - 1) = intruderX & (intruderY = y)) |
+	((x = intruderX) & (intruderY = y + 1)) | ((x = intruderX) & (intruderY = y - 1));
+	
+predicate runIntruderRun0():
+	((adjecentToIntruder(robotX0, robotY0)) &
+	((next(intruderX) = robotX0) & (next(intruderY) = robotY0) |
+	 (next(intruderX) = robotX0 - 1) & (next(intruderY) = robotY0) |
+	 (next(intruderX) = robotX0 + 1) & (next(intruderY) = robotY0) |
+	 (next(intruderX) = robotX0) & (next(intruderY) = robotY0 + 1) |
+	 (next(intruderX) = robotX0) & (next(intruderY) = robotY0 -1)));
+	 
+predicate runIntruderRun1():	 
+	((adjecentToIntruder(robotX1, robotY1)) &
+	((next(intruderX) = robotX1) & (next(intruderY) = robotY1) |
+	 (next(intruderX) = robotX1 - 1) & (next(intruderY) = robotY1) |
+	 (next(intruderX) = robotX1 + 1) & (next(intruderY) = robotY1) |
+	 (next(intruderX) = robotX1) & (next(intruderY) = robotY1 + 1) |
+	 (next(intruderX) = robotX1) & (next(intruderY) = robotY1 -1))); 
+	
+gar alw intruderStuck & turns < 4 -> next(turns) = turns+ 1;
+gar alw !intruderStuck | turns = 4 -> next(turns) = 0;
+asm alw intruderStuck & turns < 4 implies next(intruderX) = intruderX & next(intruderY) = intruderY;
+asm alw turns = 4 implies next(intruderY)=D;
+asm alw !intruderStuck & turns < 4 implies !runIntruderRun0() & !runIntruderRun1();
+
+// req 6
+gar alwEv turns=4;
+
+
+
+// req 7
+define robot0AtBottomLeftCorner := robotX0=0 & robotY0=D;
+	   robot1CanMove := ONCE(robot0AtBottomLeftCorner);
+
+gar always !robot1CanMove implies (robotX1 = 7 & robotY1 = 0);
+
+// req 8
+gar always !atObstacle(robotX0, robotY0);
+gar always !atObstacle(robotX1, robotY1);
+asm always !atObstacle(intruderX, intruderY);

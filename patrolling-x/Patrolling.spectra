@@ -1,0 +1,145 @@
+import "./imports/DwyerPatterns.spectra"
+
+spec Patrolling
+
+define DX := 4;
+define DY := 4;
+
+type DimX = Int(0..DX);
+type DimY = Int(0..DY);
+
+sys DimX robotX;
+sys DimY robotY;
+
+//TODO: complete the specification
+env DimX tarAX;
+env DimY tarAY;
+env DimX tarBX;
+env DimY tarBY;
+env DimX tarCX;
+env DimY tarCY;
+
+env boolean tarABlocked;
+env boolean tarBBlocked;
+env boolean tarCBlocked;
+
+env DimX slidingObstacleX;
+
+env boolean noPower;
+
+
+define
+  inTopLeftCorner :=  robotX=0 & robotY=0;    
+  inCharger := robotX=DX & robotY=0;
+  inA := (robotX=tarAX & robotY=tarAY);
+  inB := (robotX=tarBX & robotY=tarBY);
+  inC := (robotX=tarCX & robotY=tarCY);
+  slidingObstacleY := 2;
+  
+predicate dontMove(DimX x , DimY y):
+	x = next(x) &
+	y = next(y);  
+
+predicate moveDistX(DimX pos):
+  pos+1 = next(pos) |
+  pos   = next(pos) |
+  pos-1 = next(pos);
+  
+predicate moveDistY(DimY pos):
+  pos+1 = next(pos) |
+  pos   = next(pos) |
+  pos-1 = next(pos);
+  
+predicate isOnObstacle(DimX x , DimY y):
+	((x=1 & y=1) | 
+  (x=2 & y=1) |
+  (x=0 & y=3) |
+  (x=3 & y=3) |
+  (x=3 & y=4) );  
+
+predicate atSamePlace(DimX x1, DimY y1, DimX x2, DimY y2):
+	(x1=x2) & (y1=y2);
+
+//asm targetsInDifferentLocation:
+//	ini (!atSamePlace(tarAX, tarAY, tarBX, tarBY) &
+//	!atSamePlace(tarAX, tarAY, tarCX, tarCY) &
+//	!atSamePlace(tarBX, tarBY, tarCX, tarCY));
+
+//  targets cannot be in the same location
+asm ini !atSamePlace(tarAX, tarAY, tarBX, tarBY);
+asm ini !atSamePlace(tarAX, tarAY, tarCX, tarCY);
+asm ini !atSamePlace(tarBX, tarBY, tarCX, tarCY);
+
+// req 5 asm
+asm ini !atSamePlace(tarAX, tarAY, 4, 0);
+asm ini !atSamePlace(tarBX, tarBY, 4, 0);
+asm ini !atSamePlace(tarCX, tarCY, 4, 0);
+
+// Target locations are never on the fixed obstacle locations.
+asm ini !isOnObstacle(tarAX,tarAY);
+asm ini !isOnObstacle(tarBX,tarBY);
+asm ini !isOnObstacle(tarCX,tarCY);
+
+// targets don't move 
+asm alw dontMove(tarAX,tarAY);
+asm alw dontMove(tarBX,tarBY);
+asm alw dontMove(tarCX,tarCY);
+
+// target are green infinite number of times
+asm alwEv !tarABlocked;
+asm alwEv !tarBBlocked;
+asm alwEv !tarCBlocked;
+
+
+// Target block is mutually exclusive 
+asm alw tarABlocked implies !tarBBlocked & !tarCBlocked;
+asm alw tarBBlocked implies !tarABlocked & !tarCBlocked;
+asm alw tarCBlocked implies !tarBBlocked & !tarABlocked;
+
+
+// moving obstacle vars
+asm alwEv slidingObstacleX = 0;
+asm alwEv slidingObstacleX = DX;
+asm alw moveDistX(slidingObstacleX);
+
+
+// for req 4
+asm notBlockingGreenA:
+	alwEv !atSamePlace(tarAX, tarAY, slidingObstacleX, 2)
+	& !tarABlocked;
+	
+asm notBlockingGreenB:
+	alwEv !atSamePlace(tarBX, tarBY, slidingObstacleX, 2)
+	& !tarBBlocked;
+	
+asm notBlockingGreenC:
+	alwEv !atSamePlace(tarCX, tarCY, slidingObstacleX, 2)
+	& !tarCBlocked;
+ 
+ 
+// assuring legal movement of the robot
+gar robotMoves:
+  always moveDistX(robotX) & moveDistY(robotY);  
+
+// robot cannot stand on an obstacle
+gar alw !isOnObstacle(robotX,robotY); 
+
+// The robot must touch each target as some point in the future  
+gar alwEv inA;
+gar alwEv inB;
+gar alwEv inC;
+
+// the robot cannot stand on a blocked target
+gar alw tarABlocked implies !inA;
+gar alw tarBBlocked implies !inB;
+gar alw tarCBlocked implies !inC;
+
+// The robot will go to topLeftCorner after being at (at least) one of the targets
+gar S_responds_to_P_globally(inTopLeftCorner, inA | inB | inC);
+
+// the robot cannot touch the moving obstacle
+gar alw (slidingObstacleX=robotX & slidingObstacleY=robotY) implies false;
+
+// if the robot gets a signal that it has no power, at some point in the future it will go to re charge.
+gar trig [true]*[noPower] |=> [true]*[inCharger]{4,};
+ 

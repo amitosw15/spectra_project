@@ -1,0 +1,140 @@
+Parsing: 101ms
+Simplification: 1ms
+BDD translation: 119ms (Using BDD Package: CUDDFactory, Version: CUDD 3.0)
+Statespace env: 21, sys: 6, aux: 1
+ports:
+  in tarAX = {0,1,2,3,4}
+  in tarAY = {0,1,2,3,4}
+  in tarBX = {0,1,2,3,4}
+  in tarBY = {0,1,2,3,4}
+  in tarCX = {0,1,2,3,4}
+  in tarCY = {0,1,2,3,4}
+  in tarABlocked = {false,true}
+  in tarBBlocked = {false,true}
+  in tarCBlocked = {false,true}
+
+  out robotX = {0,1,2,3,4}
+  out robotY = {0,1,2,3,4}
+
+automaton:
+// number of states reduced from 118 to 21 by DFA minimization of strategy.
+state INI[initial], S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, DEAD;
+
+INI -> DEAD {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:0, robotY:0};
+INI -> S0 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:3};
+INI -> S18 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:0};
+INI -> S12 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:0, robotY:4};
+INI -> S2 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:2};
+INI -> S6 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:0};
+INI -> S11 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:4};
+INI -> S8 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:2};
+INI -> S7 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:1};
+INI -> S13 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:3};
+INI -> S4 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:0};
+INI -> S5 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:0};
+INI -> S14 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:0, robotY:2};
+INI -> S10 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:4};
+INI -> S3 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:1};
+INI -> S15 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:0, robotY:1};
+INI -> S9 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:3};
+INI -> S1 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:4};
+INI -> S16 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:2};
+INI -> S17 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:2};
+S0 -> S0 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:3};
+S0 -> S2 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:2};
+S0 -> S8 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:2};
+S0 -> S1 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:4};
+S1 -> S0 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:3};
+S1 -> S1 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:4};
+S2 -> S0 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:3};
+S2 -> S2 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:2};
+S2 -> S3 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:1};
+S2 -> S8 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:2};
+S2 -> S7 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:1};
+S3 -> S4 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:0};
+S3 -> S5 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:0};
+S3 -> S2 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:2};
+S3 -> S3 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:1};
+S3 -> S6 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:0};
+S3 -> S8 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:2};
+S3 -> S7 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:1};
+S3 -> S17 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:2};
+S4 -> S4 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:0};
+S4 -> S5 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:0};
+S4 -> S18 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:0};
+S4 -> S3 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:1};
+S5 -> S4 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:0};
+S5 -> S5 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:0};
+S5 -> S3 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:1};
+S5 -> S6 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:0};
+S5 -> S7 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:1};
+S6 -> S5 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:0};
+S6 -> S3 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:1};
+S6 -> S6 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:0};
+S6 -> S7 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:1};
+S7 -> S5 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:0};
+S7 -> S2 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:2};
+S7 -> S3 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:1};
+S7 -> S6 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:0};
+S7 -> S8 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:2};
+S7 -> S7 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:1};
+S8 -> S0 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:3};
+S8 -> S2 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:2};
+S8 -> S3 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:1};
+S8 -> S9 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:3};
+S8 -> S8 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:2};
+S8 -> S7 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:4, robotY:1};
+S8 -> S17 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:2};
+S9 -> S10 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:4};
+S9 -> S9 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:3};
+S9 -> S11 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:4};
+S9 -> S8 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:2};
+S9 -> S16 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:2};
+S9 -> S17 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:2};
+S9 -> S13 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:3};
+S10 -> S10 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:4};
+S10 -> S9 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:3};
+S10 -> S11 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:4};
+S10 -> S13 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:3};
+S11 -> S10 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:4};
+S11 -> S12 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:0, robotY:4};
+S11 -> S9 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:3};
+S11 -> S11 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:4};
+S11 -> S13 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:3};
+S12 -> S12 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:0, robotY:4};
+S12 -> S11 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:4};
+S12 -> S13 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:3};
+S13 -> S14 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:0, robotY:2};
+S13 -> S10 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:4};
+S13 -> S12 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:0, robotY:4};
+S13 -> S9 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:3};
+S13 -> S11 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:4};
+S13 -> S16 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:2};
+S13 -> S17 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:2};
+S13 -> S13 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:3};
+S14 -> S14 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:0, robotY:2};
+S14 -> S15 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:0, robotY:1};
+S14 -> S16 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:2};
+S14 -> S13 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:3};
+S15 -> DEAD {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:0, robotY:0};
+S15 -> S18 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:0};
+S15 -> S14 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:0, robotY:2};
+S15 -> S15 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:0, robotY:1};
+S15 -> S16 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:2};
+S16 -> S14 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:0, robotY:2};
+S16 -> S15 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:0, robotY:1};
+S16 -> S9 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:3};
+S16 -> S16 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:2};
+S16 -> S17 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:2};
+S16 -> S13 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:3};
+S17 -> S3 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:1};
+S17 -> S9 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:3};
+S17 -> S8 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:3, robotY:2};
+S17 -> S16 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:2};
+S17 -> S17 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:2};
+S17 -> S13 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:3};
+S18 -> S4 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:2, robotY:0};
+S18 -> DEAD {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:0, robotY:0};
+S18 -> S18 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:1, robotY:0};
+S18 -> S15 {tarAX:0, tarAY:0, tarBX:0, tarBY:1, tarCX:1, tarCY:0, tarABlocked:false, tarBBlocked:false, tarCBlocked:false} / {robotX:0, robotY:1};
+Computation time: 3963ms

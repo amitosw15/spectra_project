@@ -1,0 +1,118 @@
+import "./imports/DwyerPatterns.spectra"
+
+spec Patrolling
+
+define DX := 4;
+define DY := 4;
+
+type DimX = Int(0..DX);
+type DimY = Int(0..DY);
+
+sys DimX robotX;
+sys DimY robotY;
+
+//TODO: complete the specification
+env DimX obsAX;
+env DimX obsAY;
+env DimX obsBX;
+env DimX obsBY;
+env DimX obsCX;
+env DimX obsCY;
+
+define
+  inTopLeftCorner :=  robotX=0 & robotY=0;    
+  inCharger := robotX=DX & robotY=0;
+  inA := robotX=obsAX & robotY=obsAY;
+  inB := robotX=obsBX & robotY=obsBY;
+  inC := robotX=obsCX & robotY=obsCY;
+  
+predicate dontMove(DimX x , DimY y):
+	x= next(x) &
+	y = next(y);  
+
+predicate moveDistX(DimX pos):
+  pos+1 = next(pos) |
+  pos   = next(pos) |
+  pos-1 = next(pos);
+  
+predicate moveDistY(DimY pos):
+  pos+1 = next(pos) |
+  pos   = next(pos) |
+  pos-1 = next(pos);
+  
+predicate isOnObstacle(DimX x , DimY y):
+	((x=1 & y=1) | 
+  (x=2 & y=1) |
+  (x=0 & y=3) |
+  (x=3 & y=3) |
+  (x=3 & y=4) );  
+
+		
+
+asm alw dontMove(obsAX,obsAY);
+asm alw dontMove(obsBX,obsBY);
+asm alw dontMove(obsCX,obsCY);
+
+// Target locations are never on the fixed obstacle locations.
+asm alw !isOnObstacle(obsAX,obsAY);
+asm alw !isOnObstacle(obsBX,obsBY);
+asm alw !isOnObstacle(obsCX,obsCY);
+
+  
+gar robotMoves:
+  always moveDistX(robotX) & moveDistY(robotY);  
+  
+gar alw !isOnObstacle(robotX,robotY); 
+  
+gar alwEv inA;
+gar alwEv inB;
+gar alwEv inC;
+
+
+//  
+////____________________________  
+//guarantee startInBed:
+//  ini inBed;  
+//
+///**
+// * restrict the moves of the monkey to go only to neighboring
+// * squares
+// * 
+// */
+//gar monkeyMoves:
+//  always moveDist(monkey[0]) & moveDist(monkey[1]); 
+//    
+///**
+// * make sure parameter changes by at most +/- one 
+// * @param Dim pos
+// */    
+//predicate moveDistX(DimX pos):
+//  pos+1 = next(pos) |
+//  pos   = next(pos) |
+//  pos-1 = next(pos);
+//  
+//predicate moveDistY(DimY pos):
+//  pos+1 = next(pos) |
+//  pos   = next(pos) |
+//  pos-1 = next(pos);
+//  
+//       
+//    
+//gar
+//  alwEv inBed;
+//  
+//gar
+//  alwEv atTV;
+//  
+//gar haveShowerAfterLeavingTVandGoingToBed:
+//  P_becomes_true_between_Q_and_R(inShower, atTV, inBed);  
+//  
+//gar alwaysEventuallyEatABanana:
+//  alwEv atBanana;  
+//  
+///**
+// * use an assumption to only consider environments with bananas that stay
+// */
+//asm bananasDontMoveUntilMonkeyIsThere:
+//  always !atBanana -> (banana[0]=next(banana[0]) & banana[1]=next(banana[1]));
+  

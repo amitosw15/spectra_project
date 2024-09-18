@@ -1,0 +1,93 @@
+// Amit Weinstock
+
+import "DwyerPatterns.spectra"
+
+/**
+ * The second module we created in the class meeting on Nov, 7th.
+ * <br>
+ * We add a banana to the chess board that is controlled by the environment.
+ * 
+ * The monkey has to catch it.
+ * 
+ * It stays in the same place until the monkey eats the banana.
+ * 
+ * Then a new banana appears. 
+ */
+spec MonkeyWithBananaEx3
+      
+sys Dim[2] monkey;
+
+env Dim[2] banana;
+
+type Dim = Int(0..7);
+
+define
+  inBed :=  monkey[0]=0 & monkey[1]=0;    
+  atTV := monkey[0]=2 & monkey[1]=2;
+  inShower :=   monkey[0]=2 & monkey[1]=0;
+  atBanana := monkey[0]=banana[0] & monkey[1]=banana[1];
+  
+guarantee startInBed:
+  ini inBed;  
+
+/**
+ * restrict the moves of the monkey to go only to neighboring
+ * squares
+ * 
+ */
+gar monkeyMoves:
+  always moveDist(monkey[0]) & moveDist(monkey[1]); 
+    
+/**
+ * make sure parameter changes by at most +/- one 
+ * @param Dim pos
+ */    
+predicate moveDist(Dim pos):
+  pos+1 = next(pos) |
+  pos   = next(pos) |
+  pos-1 = next(pos);     
+    
+gar
+  alwEv inBed;
+  
+gar
+  alwEv atTV;
+  
+gar haveShowerAfterLeavingTVandGoingToBed:
+  P_becomes_true_between_Q_and_R(inShower, atTV, inBed);  
+  
+gar alwaysEventuallyEatABanana:
+  alwEv atBanana;  
+  
+/**
+ * use an assumption to only consider environments with bananas that stay
+ */
+asm bananasDontMoveUntilMonkeyIsThere:
+  always !atBanana -> (banana[0]=next(banana[0]) & banana[1]=next(banana[1]));
+
+
+
+//2B
+gar monkeyBinge: trig [true]*[atTV] |=>
+[atTV]{5,};
+
+//2C
+gar noLongShowers: trig [true]*[inShower]{4,} |=> [false];
+
+//3A
+// The assumption is not necessary for realizability because the specification was realizable prier to the assumption
+// also using the spectra tools we see that the core contains only bananasDontMoveUntilMonkeyIsThere assumption. 
+// The assumption in not vacuous because it does change the meaning of the specification, before this assumption
+// the banana could have been in the shower.
+asm bananaNotInShower:
+always (banana[0] = 2 & banana[1] = 0) -> false;
+
+//3b
+// The assumption is not necessary for realizability because the specification was realizable prier to the assumption
+// also using the spectra tools we see that the core contains only bananasDontMoveUntilMonkeyIsThere assumption. 
+// The assumption in not vacuous because it does change the meaning of the specification, before this assumption
+// the banana could have been in any cell.
+asm bananaOnEven: alw (banana[0] in {0,2,4,6}) & (banana[1] in {0,2,4,6});
+// It might place the banana in the shower, which will lead to violation of assumptions
+
+
